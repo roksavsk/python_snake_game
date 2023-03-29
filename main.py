@@ -25,7 +25,7 @@ limegreen = pygame.Color('limegreen')
 orangered4 = pygame.Color('orangered4')
 indigo = pygame.Color('indigo')
 magenta3 = pygame.Color('magenta3')
-slategrey = pygame.Color('slategrey')
+grey35 = pygame.Color('grey35')
 
 SNAKE_WIDTH, SNAKE_HEIGHT = 10, 10
 FOOD_WIDTH, FOOD_HEIGHT = SNAKE_WIDTH, SNAKE_HEIGHT
@@ -111,7 +111,6 @@ while game_run:
                     game_run = False
 
     for event in pygame.event.get():
-        # print(event)
 
         if event.type == pygame.QUIT:
             game_run = False
@@ -177,12 +176,6 @@ while game_run:
     if snake_intersects_itself(SNAKE):
         game_end = True
 
-    if snake_intersects_brick(SNAKE[-1], WALL):
-        game_end = True
-
-    if snake_intersects_brick(SNAKE[-1], BRICKS):
-        game_end = True
-
     # Draw
     if FOOD_X is not None and FOOD_Y is not None:
         pygame.draw.rect(dis, magenta3, [FOOD_X, FOOD_Y, FOOD_WIDTH, FOOD_HEIGHT])
@@ -190,11 +183,19 @@ while game_run:
     for coord_block in SNAKE:
         pygame.draw.rect(dis, royalblue4, [coord_block[0], coord_block[1], SNAKE_WIDTH, SNAKE_HEIGHT])
 
-    for brick in WALL:
-        pygame.draw.rect(dis, slategrey, [brick[0], brick[1], BRICK_SIZE, BRICK_SIZE])
+    if SCORE > 5:
+        for brick in WALL:
+            pygame.draw.rect(dis, grey35, [brick[0], brick[1], BRICK_SIZE, BRICK_SIZE])
 
-    for brick in BRICKS:
-        pygame.draw.rect(dis, slategrey, [brick[0], brick[1], BRICK_SIZE, BRICK_SIZE])
+        if snake_intersects_brick(SNAKE[-1], WALL):
+            game_end = True
+
+    if SCORE > 10:
+        for brick in BRICKS:
+            pygame.draw.rect(dis, grey35, [brick[0], brick[1], BRICK_SIZE, BRICK_SIZE])
+
+        if snake_intersects_brick(SNAKE[-1], BRICKS):
+            game_end = True
 
     pygame.display.update()
     clock.tick(10)

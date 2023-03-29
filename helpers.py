@@ -7,13 +7,13 @@ def message(dis, font_style, msg, color, x, y):
 
 
 def has_intersects_borders(w_width, w_height, x, y, snake_width, snake_height) -> bool:
-    if y <= 0:
+    if y < 0:
         return True
-    elif y >= w_height - snake_height:
+    elif y > w_height - snake_height:
         return True
-    elif x <= 0:
+    elif x < 0:
         return True
-    elif x >= w_width - snake_width:
+    elif x > w_width - snake_width:
         return True
     return False
 
@@ -57,12 +57,6 @@ def snake_intersects_block(snake_x, snake_y,
     :return:
     """
 
-    # if check_direction:
-    #     direction_y = not direction_x
-    #     direction_x = direction_x
-    # else:
-    #     direction_y = True
-    #     direction_x = True
     direction_y = not direction_x
 
     if block_x is None or block_y is None:
