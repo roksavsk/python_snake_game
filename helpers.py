@@ -90,11 +90,17 @@ def to_ten(n):
     return round(n / 10.0) * 10.0
 
 
-def generate_food(w_width, w_height, snake_width, snake_height):
-    return (
+def generate_food(w_width, w_height, snake_width, snake_height, snake, wall, bricks):
+    food = (
         to_ten(random.randrange(0, w_width - snake_width)),
         to_ten(random.randrange(0, w_height - snake_height))
     )
+    if food in snake or food in wall or food in bricks:
+        food = (
+            to_ten(random.randrange(0, w_width - snake_width)),
+            to_ten(random.randrange(0, w_height - snake_height))
+        )
+    return food
 
 
 def generate_wall(w_width, w_height, brick_size) -> list:
